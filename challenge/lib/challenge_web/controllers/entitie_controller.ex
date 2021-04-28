@@ -16,20 +16,21 @@ defmodule ChallengeWeb.EntitieController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.entitie_path(conn, :show, entitie))
-      |> render("show.json", entitie: entitie)
+      |> render("post.json", entitie: entitie)
     end
   end
 
   def show(conn, %{"id" => id}) do
     entitie = Organization.get_entitie!(id)
-    render(conn, "show.json", entitie: entitie)
+    subtree = Organization.get_entities_by_id(id)
+    render(conn, "show.json", entitie: entitie, subtree: subtree)
   end
 
   def update(conn, %{"id" => id, "entitie" => entitie_params}) do
     entitie = Organization.get_entitie!(id)
 
     with {:ok, %Entitie{} = entitie} <- Organization.update_entitie(entitie, entitie_params) do
-      render(conn, "show.json", entitie: entitie)
+      render(conn, "post.json", entitie: entitie)
     end
   end
 
