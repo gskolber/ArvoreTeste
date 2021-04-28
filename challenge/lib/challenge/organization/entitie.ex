@@ -42,6 +42,7 @@ defmodule Challenge.Organization.Entitie do
 
   defp entitie_validations(changeset) do
     changeset
+    |> validate_required([:parent_id, :inep| @required_fields])
   end
 
 end
