@@ -4,18 +4,24 @@ defmodule ChallengeWeb.EntitieControllerTest do
   alias Challenge.Organization
   alias Challenge.Organization.Entitie
 
-  @create_attrs %{
-    entity_type: "some entity_type",
+  @create_attrs_network %{
+    entity_type: "network",
+    name: "some name network",
+  }
+
+  @create_attrs_school %{
+    entity_type: "school",
     inep: 42,
-    name: "some name",
-    parent_id: 42
+    name: "some name school",
   }
-  @update_attrs %{
-    entity_type: "some updated entity_type",
-    inep: 43,
-    name: "some updated name",
-    parent_id: 43
+
+  @create_attrs_class %{
+    entity_type: "class",
+    parent_id: 1,
+    name: "some name school",
   }
+
+
   @invalid_attrs %{entity_type: nil, inep: nil, name: nil, parent_id: nil}
 
   def fixture(:entitie) do
@@ -36,17 +42,15 @@ defmodule ChallengeWeb.EntitieControllerTest do
 
   describe "create entitie" do
     test "renders entitie when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs)
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs_network)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.entitie_path(conn, :show, id))
 
       assert %{
                "id" => id,
-               "entity_type" => "some entity_type",
-               "inep" => 42,
-               "name" => "some name",
-               "parent_id" => 42
+               "entity_type" => "network",
+               "name" => "some name network",
              } = json_response(conn, 200)["data"]
     end
 
