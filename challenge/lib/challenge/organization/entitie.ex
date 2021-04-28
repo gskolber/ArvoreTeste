@@ -19,7 +19,7 @@ defmodule Challenge.Organization.Entitie do
   @doc false
   def changeset(entitie, attrs) do
     entitie
-    |> cast(attrs, @all_fields)
+    |> cast(attrs, [:subtree |@all_fields])
     |> validate_inclusion(:entity_type, @valid_entities)
     |> entitie_validations
   end
