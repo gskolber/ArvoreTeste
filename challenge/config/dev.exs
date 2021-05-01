@@ -3,9 +3,9 @@ use Mix.Config
 # Configure your database
 config :challenge, Challenge.Repo,
   username: "root",
-  password: "",
+  password: "osasco",
   database: "challenge_dev",
-  hostname: "localhost",
+  hostname: "35.238.35.160",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
