@@ -7,6 +7,7 @@ defmodule ChallengeWeb.Router do
 
   scope "/api", ChallengeWeb do
     pipe_through :api
+    resources "/entities", EntitieController, only: [:index, :show, :create, :update, :delete]
   end
 
   # Enables LiveDashboard only for development
