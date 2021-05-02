@@ -27,6 +27,7 @@ defmodule ChallengeWeb.EntitieControllerTest do
     name: "other class"
   }
 
+
   @invalid_attrs %{entity_type: nil, inep: nil, name: nil, parent_id: nil}
 
   def fixture(:entitie) do
@@ -101,6 +102,17 @@ defmodule ChallengeWeb.EntitieControllerTest do
       conn = post(conn, Routes.entitie_path(conn, :create), entitie: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
+
+    test "renders errors when class dont have a parent_id", %{conn: conn} do
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: Map.delete(@create_attrs_class, :parent_id))
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+
+    test "renders errors when school dont have a inep code", %{conn: conn} do
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: Map.delete(@create_attrs_school, :inep))
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+
   end
 
   describe "update entitie" do
