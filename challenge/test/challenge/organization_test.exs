@@ -6,8 +6,8 @@ defmodule Challenge.OrganizationTest do
   describe "entities" do
     alias Challenge.Organization.Entitie
 
-    @valid_attrs %{entity_type: "some entity_type", inep: 42, name: "some name", parent_id: 42}
-    @update_attrs %{entity_type: "some updated entity_type", inep: 43, name: "some updated name", parent_id: 43}
+    @valid_attrs %{entity_type: "school", inep: 42, name: "La Salle - São Leopoldo"}
+    @update_attrs %{entity_type: "network", name: "teste"}
     @invalid_attrs %{entity_type: nil, inep: nil, name: nil, parent_id: nil}
 
     def entitie_fixture(attrs \\ %{}) do
@@ -31,10 +31,9 @@ defmodule Challenge.OrganizationTest do
 
     test "create_entitie/1 with valid data creates a entitie" do
       assert {:ok, %Entitie{} = entitie} = Organization.create_entitie(@valid_attrs)
-      assert entitie.entity_type == "some entity_type"
+      assert entitie.entity_type == "school"
       assert entitie.inep == 42
-      assert entitie.name == "some name"
-      assert entitie.parent_id == 42
+      assert entitie.name == "La Salle - São Leopoldo"
     end
 
     test "create_entitie/1 with invalid data returns error changeset" do
@@ -44,10 +43,8 @@ defmodule Challenge.OrganizationTest do
     test "update_entitie/2 with valid data updates the entitie" do
       entitie = entitie_fixture()
       assert {:ok, %Entitie{} = entitie} = Organization.update_entitie(entitie, @update_attrs)
-      assert entitie.entity_type == "some updated entity_type"
-      assert entitie.inep == 43
-      assert entitie.name == "some updated name"
-      assert entitie.parent_id == 43
+      assert entitie.entity_type == "network"
+      assert entitie.name == "teste"
     end
 
     test "update_entitie/2 with invalid data returns error changeset" do

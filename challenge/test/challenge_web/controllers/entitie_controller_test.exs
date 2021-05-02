@@ -6,26 +6,31 @@ defmodule ChallengeWeb.EntitieControllerTest do
 
   @create_attrs_network %{
     entity_type: "network",
-    name: "some name network",
+    name: "some name network"
   }
 
   @create_attrs_school %{
     entity_type: "school",
     inep: 42,
-    name: "some name school",
+    name: "some name school"
   }
 
   @create_attrs_class %{
     entity_type: "class",
     parent_id: 1,
-    name: "some name school",
+    name: "some name class"
   }
 
+  @update_attrs %{
+    entity_type: "class",
+    parent_id: 1,
+    name: "other class"
+  }
 
   @invalid_attrs %{entity_type: nil, inep: nil, name: nil, parent_id: nil}
 
   def fixture(:entitie) do
-    {:ok, entitie} = Organization.create_entitie(@create_attrs)
+    {:ok, entitie} = Organization.create_entitie(@create_attrs_network)
     entitie
   end
 
@@ -41,18 +46,56 @@ defmodule ChallengeWeb.EntitieControllerTest do
   end
 
   describe "create entitie" do
-    test "renders entitie when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs_network)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+    test "returns a valid entity school", %{conn: conn} do
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs_school)
+      assert %{"data" => data} = json_response(conn, 201)
 
-      conn = get(conn, Routes.entitie_path(conn, :show, id))
+
+      conn = get(conn, Routes.entitie_path(conn, :show, data["id"]))
 
       assert %{
-               "id" => id,
-               "entity_type" => "network",
-               "name" => "some name network",
-             } = json_response(conn, 200)["data"]
+        "name" => "some name school",
+        "entity_type" => "school",
+        "id" => id,
+        "inep" =>42,
+        "parent_id" => nil,
+        "subtree" => []
+      } = json_response(conn, 200)
+
+
     end
+
+    test "returns a valid entity network", %{conn: conn} do
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs_network)
+      assert %{"data" => data} = json_response(conn, 201)
+
+
+      conn = get(conn, Routes.entitie_path(conn, :show, data["id"]))
+
+      assert %{
+        "name" => "some name network",
+        "entity_type" => "network",
+        "id" => id,
+      } = json_response(conn, 200)
+
+    end
+
+    test "returns a valid entity class", %{conn: conn} do
+      conn = post(conn, Routes.entitie_path(conn, :create), entitie: @create_attrs_class)
+      assert %{"data" => data} = json_response(conn, 201)
+
+
+      conn = get(conn, Routes.entitie_path(conn, :show, data["id"]))
+
+      assert %{
+        "name" => "some name class",
+        "entity_type" => "class",
+        "id" => id,
+        "parent_id" => 1
+      } = json_response(conn, 200)
+
+    end
+
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.entitie_path(conn, :create), entitie: @invalid_attrs)
@@ -71,11 +114,10 @@ defmodule ChallengeWeb.EntitieControllerTest do
 
       assert %{
                "id" => id,
-               "entity_type" => "some updated entity_type",
-               "inep" => 43,
-               "name" => "some updated name",
-               "parent_id" => 43
-             } = json_response(conn, 200)["data"]
+               "entity_type" => "class",
+               "name" => "other class",
+               "parent_id" => 1
+             } = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn, entitie: entitie} do
