@@ -10,6 +10,5 @@ defmodule Challenge.Repo.Migrations.CreateEntities do
 
       timestamps()
     end
-
   end
 end
