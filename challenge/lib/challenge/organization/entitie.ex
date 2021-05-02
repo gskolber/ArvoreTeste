@@ -4,7 +4,7 @@ defmodule Challenge.Organization.Entitie do
 
   @valid_entities ["school", "network", "class"]
   @required_fields [:name, :entity_type]
-  @all_fields [:inep,:parent_id | @required_fields]
+  @all_fields [:inep, :parent_id | @required_fields]
 
   schema "entities" do
     field :entity_type, :string
@@ -19,7 +19,7 @@ defmodule Challenge.Organization.Entitie do
   @doc false
   def changeset(entitie, attrs) do
     entitie
-    |> cast(attrs, [:subtree |@all_fields])
+    |> cast(attrs, [:subtree | @all_fields])
     |> validate_inclusion(:entity_type, @valid_entities)
     |> entitie_validations
   end
@@ -42,7 +42,6 @@ defmodule Challenge.Organization.Entitie do
 
   defp entitie_validations(changeset) do
     changeset
-    |> validate_required([:parent_id, :inep| @required_fields])
+    |> validate_required([:parent_id, :inep | @required_fields])
   end
-
 end

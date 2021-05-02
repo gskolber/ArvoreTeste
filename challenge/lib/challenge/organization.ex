@@ -38,9 +38,10 @@ defmodule Challenge.Organization do
   def get_entitie!(id), do: Repo.get!(Entitie, id)
 
   def get_entities_by_id(id) do
-    query = from(Entitie, where: [parent_id: ^id], select: [:id])
-    |> Repo.all()
-    |> Enum.map(fn entitie -> entitie.id end)
+    query =
+      from(Entitie, where: [parent_id: ^id], select: [:id])
+      |> Repo.all()
+      |> Enum.map(fn entitie -> entitie.id end)
   end
 
   @doc """
@@ -60,7 +61,6 @@ defmodule Challenge.Organization do
     |> Entitie.changeset(attrs)
     |> Repo.insert()
   end
-
 
   @doc """
   Updates a entitie.
