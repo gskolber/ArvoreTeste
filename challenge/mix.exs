@@ -33,6 +33,8 @@ defmodule Challenge.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ex_json_schema, "~> 0.5"},
+      {:phoenix_swagger, "~> 0.8"},
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},

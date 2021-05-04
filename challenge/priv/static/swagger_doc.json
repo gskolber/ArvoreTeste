@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Este é um teste do processo seletivo da empresa Arvore para backend jr - elixir",
+    "version": "1.0.0",
+    "title": "Desafio Arvore"
+  },
+  "host": "challenge-arvore.herokuapp.com",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "entities",
+      "description": "Operações relacionadas a entidade"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/entities/{id}": {
+      "get": {
+        "tags": [
+          "entities"
+        ],
+        "summary": "Retorna uma entidadade pelo id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "description": "Id da entidade."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    },
+    "/entities": {
+      "post": {
+        "tags": [
+          "entities"
+        ],
+        "summary": "Adiciona uma nova entidade",
+        "description": "",
+        "operationId": "addEntitie",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entidade que deve ser enviada",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseEntitie"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "created"
+          },
+          "422": {
+            "description": "unprocessable entity"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "entities"
+        ],
+        "summary": "Atualiza uma entidade já existente",
+        "description": "",
+        "operationId": "updateEntitie",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseEntitie"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseEntitie": {
+      "type": "object",
+      "required": [
+        "entitie"
+      ],
+      "properties": {
+        "entitie": {
+          "$ref": "#/definitions/Entitie"
+        }
+      }
+    },
+    "Entitie": {
+      "type": "object",
+      "required": [
+        "name",
+        "entity_type"
+      ],
+      "properties": {
+        "entity_type": {
+          "type": "string",
+          "enum": [
+            "school",
+            "network",
+            "class"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "example": "La Salle"
+        },
+        "inep": {
+          "type": "integer",
+          "example": "Apenas escolas possuem inep"
+        },
+        "parent_id": {
+          "type": "integer",
+          "example": "O id da entidade de hierarquia superior, podendo ser nulo para schools e networks."
+        }
+      }
+    }
+  }
+}

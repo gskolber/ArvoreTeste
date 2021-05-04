@@ -21,6 +21,7 @@ defmodule ChallengeWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
+      forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :challenge, swagger_file: "swagger_doc.json"
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: ChallengeWeb.Telemetry
     end
