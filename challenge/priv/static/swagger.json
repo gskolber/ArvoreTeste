@@ -134,7 +134,7 @@
         ]
       }
     },
-    "/entities/{id}": {
+    "/api/entities/{id}": {
       "get": {
         "description": "Lista a entidade por id",
         "operationId": "ChallengeWeb.EntitieController.show",
