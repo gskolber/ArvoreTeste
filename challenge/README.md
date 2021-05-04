@@ -13,6 +13,10 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 # Desafio Arvore - Desenvolvedor Elixir JR.
 Níveis Estagiário e Júnior
 
+Deploy em: https://challenge-arvore.herokuapp.com/
+Documentação em: https://challenge-arvore.herokuapp.com/api/swagger/index.html#/
+
+
 # Objetivo:
 Construir uma API usando Phoenix (elixir) e banco de dados MySQL visando permitir a um parceiro da Árvore replicar a sua estrutura de Redes, Escolas, Turmas e administrá-la conforme necessário. 
 
