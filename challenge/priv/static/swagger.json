@@ -1,0 +1,175 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "BaseEntitie": {
+      "description": "Entitidade Base",
+      "properties": {
+        "entitie": {
+          "$ref": "#/definitions/Entitie"
+        }
+      }
+    },
+    "Entitie": {
+      "description": "Entidade comum do sistema",
+      "example": {
+        "entity_type": "school",
+        "inep": "253614",
+        "name": "La Salle - São Leopoldo",
+        "parent_id": "1"
+      },
+      "properties": {
+        "entity_type": {
+          "description": "'school','network','class'",
+          "type": "string"
+        },
+        "inep": {
+          "description": "Identificador da school",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Nome da entidade",
+          "type": "string"
+        },
+        "parent_id": {
+          "description": "Id da classe pai",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entity_type",
+        "name"
+      ],
+      "title": "entitie",
+      "type": "object"
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "gabrielkolber@icloud.com",
+      "name": "Gabriel Kolber"
+    },
+    "description": "Teste para backender jr - elixir.",
+    "title": "Desafio Arvore",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/entities": {
+      "get": {
+        "description": "lista todas as entidades",
+        "operationId": "ChallengeWeb.EntitieController.index",
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "sucesso"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "entitie"
+        ]
+      },
+      "patch": {
+        "description": "Atualiza uma entidade",
+        "operationId": "ChallengeWeb.EntitieController.update",
+        "parameters": [
+          {
+            "description": "Dados da entidade",
+            "in": "body",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseEntitie"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "sucesso",
+            "schema": {
+              "$ref": "#/definitions/Entitie"
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "entitie"
+        ]
+      },
+      "post": {
+        "description": "Cria uma entidade",
+        "operationId": "ChallengeWeb.EntitieController.create",
+        "parameters": [
+          {
+            "description": "Dados da entidade",
+            "in": "body",
+            "name": "entity",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseEntitie"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "sucesso",
+            "schema": {
+              "$ref": "#/definitions/Entitie"
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "entitie"
+        ]
+      }
+    },
+    "/api/entities/{id}": {
+      "get": {
+        "description": "Lista a entidade por id",
+        "operationId": "ChallengeWeb.EntitieController.show",
+        "parameters": [
+          {
+            "description": "id da entidade",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "sucesso",
+            "schema": {
+              "$ref": "#/definitions/Entitie"
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "entitie"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0"
+}
