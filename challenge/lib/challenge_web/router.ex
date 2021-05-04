@@ -10,6 +10,11 @@ defmodule ChallengeWeb.Router do
     resources "/entities", EntitieController, only: [:index, :show, :create, :update, :delete]
   end
 
+  scope "/api" do
+    forward "/swagger", PhoenixSwagger.Plug.SwaggerUI,
+    otp_app: :challenge,
+    swagger_file: "swagger.json"
+  end
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -21,9 +26,26 @@ defmodule ChallengeWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :challenge, swagger_file: "swagger_doc.json"
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: ChallengeWeb.Telemetry
     end
+  end
+
+  def swagger_info do
+    %{
+      schemes: ["http", "https"],
+      info: %{
+        version: "1.0",
+        title: "Desafio Arvore",
+        description: "Teste para backender jr - elixir.",
+        contact: %{
+          name: "Gabriel Kolber",
+          email: "gabrielkolber@icloud.com"
+        }
+      },
+      consumes: ["application/json"],
+      produces: ["application/json"],
+
+    }
   end
 end
