@@ -12,7 +12,7 @@ use Mix.Config
 config :challenge, ChallengeWeb.Endpoint,
   server: true,
   http: [port: {:system, "PORT"}],
-  url: [scheme: "https", host: "challenge-arvore.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "challenge-arvore.herokuapp.com", port: 443]
 
 # Do not print debug messages in production
 config :logger, level: :info
