@@ -26,6 +26,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :cors_plug,
+  origin: ["http://challenge-arvore.herokuapp.com"],
+  max_age: 86400,
+  methods: ["GET", "POST"]
+
 config :phoenix_swagger, json_library: Jason
 # Use Phoenix Swagger to documentation
 config :challenge, :phoenix_swagger,
